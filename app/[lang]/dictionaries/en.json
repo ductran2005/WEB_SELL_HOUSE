@@ -1,0 +1,325 @@
+{
+  "campaignName": "lp-riverfront-360",
+  "seoTitle": "Riverfront Residences - 360° Luxury Experience",
+  "seoDescription": "Experience the 3D 360° virtual reality mock apartment by the Saigon River. Register for exclusive price lists and private tours today.",
+  "brandName": "RIVERFRONT",
+  "logoText": "Residences",
+  "hero": {
+    "tag": "GRANDVIEW SHOW APARTMENT",
+    "headline": "CRAFTING LIFE AT ITS",
+    "highlightText": "Ultra Luxury",
+    "subheadline": "Experience the luxurious living room space, expanding the maximum view with a balcony looking over the beautiful sunset beside the romantic Saigon River.",
+    "ctaText": "DISCOVER NOW"
+  },
+  "stats": [
+    {
+      "value": "1,200+",
+      "label": "Future Residents"
+    },
+    {
+      "value": "3 Towers",
+      "label": "Elite Towers"
+    },
+    {
+      "value": "2.3 ha",
+      "label": "Riverfront Park"
+    },
+    {
+      "value": "100%",
+      "label": "Freehold Ownership"
+    }
+  ],
+  "roomConfigs": {
+    "living": {
+      "name": "Living Room",
+      "desc": "Experience the luxurious living room space, expanding the maximum view with a balcony looking over the beautiful sunset beside the romantic Saigon River.",
+      "hotspots": [
+        {
+          "position": [4, -0.5, 1],
+          "label": "Luxury Dining Table",
+          "info": "Solid imported Carrara marble dining table."
+        },
+        {
+          "position": [-2, 1.2, -4.5],
+          "label": "Crystal Chandelier",
+          "info": "Exclusively hand-crafted decorative lighting."
+        },
+        {
+          "position": [1, -0.8, -5],
+          "label": "Balcony Door",
+          "action": "balcony"
+        }
+      ]
+    },
+    "bedroom": {
+      "name": "Master Bedroom",
+      "desc": "Warm Master Bedroom featuring natural wood flooring, floor-to-ceiling Low-E glass window optimizing natural light and opening onto a romantic view.",
+      "hotspots": [
+        {
+          "position": [0, 0, -4.5],
+          "label": "Frameless Low-E Glass",
+          "info": "3-layer soundproof and superior heat-insulating glass."
+        },
+        {
+          "position": [3.5, 0.5, 2],
+          "label": "Built-in Wardrobe",
+          "info": "Elegant high-gloss acrylic wood design."
+        }
+      ]
+    },
+    "kitchen": {
+      "name": "Kitchen & Dining",
+      "desc": "The smart kitchen area is exquisitely finished with Quartz Stone, equipped with a European-standard built-in oven and smart induction hob.",
+      "hotspots": [
+        {
+          "position": [-3.5, 0.5, -2],
+          "label": "Hafele Kitchen Cabinetry",
+          "info": "Premium soft-closing hardware for smooth operation."
+        },
+        {
+          "position": [0.5, -0.2, 3],
+          "label": "Utility Bar Counter",
+          "info": "A relaxing space for craft cocktails at home."
+        }
+      ]
+    },
+    "bathroom": {
+      "name": "Relaxation Bathroom",
+      "desc": "The bathroom is clad in natural Marble stone, featuring a standing shower and a high-end bathtub, delivering a resort-style 5-star experience.",
+      "hotspots": [
+        {
+          "position": [-3.5, -0.5, 0.5],
+          "label": "Soaking Bathtub",
+          "info": "Premium ergonomic design for a spa-like feel."
+        },
+        {
+          "position": [3.5, 1, -1],
+          "label": "Smart Sanitaryware",
+          "info": "Kohler brand directly imported from the USA."
+        }
+      ]
+    },
+    "balcony": {
+      "name": "Panorama Balcony",
+      "desc": "A spacious balcony catching the refreshing river breeze, a perfect cozy spot to enjoy wine and watch the sparkling city skyline at night.",
+      "hotspots": [
+        {
+          "position": [-2, -0.8, -4],
+          "label": "Relaxation Lounge Chairs",
+          "info": "Peaceful space for tea drinking and scenic views on the balcony."
+        },
+        {
+          "position": [3, -0.2, 1],
+          "label": "Enter Living Room",
+          "action": "living"
+        }
+      ]
+    }
+  },
+  "ui": {
+    "overview": {
+      "sectionTag": "Project Overview",
+      "ctaPrice": "Get Private Price List",
+      "ctaDesc": "Receive floor plans, payment schedules, and custom tour dates today.",
+      "viewSgRiver": "Saigon River View",
+      "viewDesc": "Open view extending from the living room to the balcony, ideal for both residential and premium rental purposes.",
+      "ready360": "360 Ready",
+      "copy": "A curated collection of riverfront residences designed for owners who appreciate absolute privacy, deep natural light, and resort-standard living in the city."
+    },
+    "location": {
+      "sectionTag": "Prime Location",
+      "title": "A Convergence Spot by the Saigon River",
+      "desc": "Strategically positioned along the scenic riverbank, Riverfront Residences delivers seamless connectivity along with stunning panoramic views directly towards the vibrant city center.",
+      "thuthieu": "Thu Thiem Center",
+      "thuthieuDesc": "Directly connected via the Thu Thiem Bridge.",
+      "q1": "District 1 Downtown",
+      "q1Desc": "Minutes away from Nguyen Hue Walking Street and the Opera House.",
+      "binhthanh": "Binh Thanh & Thao Dien",
+      "binhthanhDesc": "Enjoy world-class international schools and healthcare services.",
+      "airport": "Tan Son Nhat Airport",
+      "airportDesc": "Smooth and quick commutes through multiple routes.",
+      "mapTitle": "Riverfront Residences Location Map",
+      "times": {
+        "5mins": "5 Mins",
+        "10mins": "10 Mins",
+        "15mins": "15 Mins",
+        "25mins": "25 Mins"
+      }
+    },
+    "tour": {
+      "sectionTag": "Exquisite Experience",
+      "title": "Immerse in Each Space",
+      "desc": "Select a space to synchronize with the 360 virtual tour and interactive map.",
+      "living": "Generous entertaining space with deep light penetration, connecting directly to the riverfront balcony.",
+      "kitchen": "Compact kitchen layout with a functional kitchen island, perfect for intimate home dinners.",
+      "bedroom": "Warm tones, large glass windows, and built-in storage maintain a calm and tranquil ambiance.",
+      "balcony": "A private sanctuary to admire the river currents, city skyline, and the transitioning colors of sunset.",
+      "bathroom": "Natural marble finish, ambient lighting, and refined fixtures create a resort-style living experience."
+    },
+    "plans": {
+      "sectionTag": "Floor Plans",
+      "title": "Versatile Options",
+      "ref": "GP-18.06 | reference only",
+      "area": "Area",
+      "price": "Price",
+      "types": {
+        "oneBedroom": "1 Bedroom",
+        "twoBedroom": "2 Bedrooms",
+        "threeBedroom": "3 Bedrooms",
+        "duplex": "Duplex"
+      },
+      "prices": {
+        "from5_8": "from 5.8B VND",
+        "from8_9": "from 8.9B VND",
+        "from13_6": "from 13.6B VND",
+        "onDemand": "on demand"
+      }
+    },
+    "advantages": {
+      "sectionTag": "Distinctive Living",
+      "title": "Commitment to Enduring Value",
+      "riverfront": "Riverfront Face",
+      "riverfrontDesc": "Unobstructed views, cool breeze, and a peaceful lifestyle at the heart of the city.",
+      "garden": "Internal Gardens",
+      "gardenDesc": "Curated green amenities, jogging paths, and relaxation spots dedicated to residents.",
+      "private": "Private Operations",
+      "privateDesc": "Exclusive lobbies, elevator control system, and high-standard concierge services.",
+      "value": "Sustainable Investment",
+      "valueDesc": "Scarce riverfront land bank, transparent legal framework, and excellent yield potential."
+    },
+    "updates": {
+      "sectionTag": "Project News",
+      "title": "Latest Updates",
+      "items": [
+        {
+          "title": "Completion of the Riverfront Gallery Showroom",
+          "date": "May 22, 2026"
+        },
+        {
+          "title": "Announcing the Corner Unit Sky-Collection",
+          "date": "May 18, 2026"
+        },
+        {
+          "title": "360 Virtual Tour Updated with Master Bedroom",
+          "date": "May 10, 2026"
+        }
+      ]
+    },
+    "contact": {
+      "tag": "Pricing & Advisory",
+      "title": "Secure Your Viewing Seat",
+      "desc": "Receive updated price lists, matching floor plans, and schedules for private tours.",
+      "flexSchedule": "Flexible Booking",
+      "secureInfo": "Confidentiality Guaranteed",
+      "placeholderName": "Full name",
+      "placeholderPhone": "Phone number",
+      "placeholderDemand": "Apartment requirement",
+      "ctaSubmit": "Get Private Advisory"
+    },
+    "footer": {
+      "desc": "Riverfront living spaces integrated with 360 tours, interactive maps, and private consultations for all ownership needs.",
+      "contact": "Project Contact",
+      "address": "Saigon Riverfront Urban Area",
+      "privateGallery": "Private preview gallery"
+    },
+    "navbar": {
+      "home": "Home",
+      "overview": "Overview",
+      "location": "Location",
+      "amenities": "Amenities",
+      "apartments": "Apartments",
+      "tour": "Tour 360",
+      "cta": "Private Booking"
+    },
+    "hero360": {
+      "sunsetHall": "Sunset Lounge",
+      "privateSpace": "Private Sanctuary",
+      "delicateKitchen": "Refined Kitchen",
+      "spaBathroom": "Spa Retreat",
+      "riverfrontBalcony": "Riverfront Deck",
+      "floorPlan": "Floor Plan",
+      "viewGallery": "View Gallery",
+      "cta360": "Experience 360°",
+      "indicatorGoHome": "Back to Home",
+      "indicatorTour": "Experience 360"
+    },
+    "panorama": {
+      "tag": "360° Apartment Tour",
+      "title": "Experience 360° VR",
+      "dragTip": "Drag to rotate the view",
+      "closeLabel": "Close 360 Experience",
+      "exitLabel": "Exit Experience Mode",
+      "loading": "Loading panorama..."
+    },
+    "gallery": {
+      "title": "ACTUAL RESIDENCE GALLERY",
+      "desc": "Discover actual interior design photos and premium handover specifications imported directly from Europe.",
+      "closeLabel": "Close Gallery",
+      "ctaRegister": "REGISTER FOR ACTUAL TOUR",
+      "tabs": {
+        "all": "All",
+        "living": "Living Room",
+        "bedroom": "Master Bedroom",
+        "kitchen": "Kitchen & Dining",
+        "bathroom": "Relaxation Bathroom",
+        "balcony": "Panorama Balcony"
+      },
+      "items": [
+        {
+          "title": "Living Room Area",
+          "description": "Panoramic open plan design, handed over with premium original marble imported from Europe.",
+          "brand": "Hafele & Kohler Furnishings"
+        },
+        {
+          "title": "Kitchen & Dining Area",
+          "description": "Kitchen clad with scratch-resistant quartz stone, equipped with integrated smart oven.",
+          "brand": "Bosch & Hafele Appliances"
+        },
+        {
+          "title": "Master Bedroom",
+          "description": "Natural walnut wood flooring, elegant floor-to-ceiling acrylic built-in closets.",
+          "brand": "Premium An Cuong Wood"
+        },
+        {
+          "title": "Relaxation Bathroom",
+          "description": "Ergonomic soaking tub, smart sanitary fixtures with luxurious gold plating for a spa-like experience.",
+          "brand": "PVD Coated Kohler Fixtures"
+        },
+        {
+          "title": "Panorama Balcony",
+          "description": "Expansive balcony catching cool river breeze, opening onto sunset and city skyline.",
+          "brand": "Saigon River View"
+        }
+      ]
+    },
+    "leadForm": {
+      "closeLabel": "Close registration form",
+      "successTitle": "Registration Successful",
+      "successDesc": "Thank you for your interest in Riverfront Residences. Our dedicated advisor will contact you within 15 minutes to share the price list and show unit viewing schedule.",
+      "successClose": "Close Window",
+      "titlePrice": "Private Pricing",
+      "subtitlePrice": "Find the ideal unit for your lifestyle.",
+      "descPrice": "Floor plan advisory, pricing, and show unit visits are fully personalized for each client.",
+      "scheduleLabel": "Flexible Visit Schedules",
+      "secureLabel": "Confidential Contact Details",
+      "registerTag": "Receive Project Info",
+      "registerTitle": "Get Pricing & Viewing Tour",
+      "registerDesc": "An advisor will send detailed layouts, payment policies, and select the best fit units.",
+      "labelName": "Full name",
+      "labelPhone": "Phone number",
+      "labelEmail": "Contact email",
+      "labelDemand": "Apartment requirement",
+      "ctaSubmit": "Get Private Price List",
+      "footerNote": "This information is used strictly for Riverfront Residences advisory.",
+      "sending": "Sending information...",
+      "successToast": "Information registered successfully!",
+      "errorToast": "Submission failed. Please try again!",
+      "demands": [
+        "1 Bedroom Apartment",
+        "2 Bedroom Apartment (GP-18.06)",
+        "3 Bedroom Apartment",
+        "Ultra Luxury Penthouse"
+      ]
+    }
+  }
+}

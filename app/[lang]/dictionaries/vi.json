@@ -1,0 +1,325 @@
+{
+  "campaignName": "lp-riverfront-360",
+  "seoTitle": "Riverfront Residences - Trải nghiệm 360° thượng lưu",
+  "seoDescription": "Trải nghiệm căn hộ thực tế ảo 3D 360 độ ven sông Sài Gòn. Đăng ký nhận bảng giá độc quyền và tham quan thực tế ngay hôm nay.",
+  "brandName": "RIVERFRONT",
+  "logoText": "Residences",
+  "hero": {
+    "tag": "CĂN HỘ MẪU TOÀ GRANDVIEW",
+    "headline": "KIẾN TẠO CUỘC SỐNG",
+    "highlightText": "Thượng Lưu",
+    "subheadline": "Trải nghiệm không gian phòng khách sang trọng, mở rộng tối đa tầm nhìn với ban công ngắm trọn hoàng hôn tuyệt mỹ bên dòng sông Sài Gòn thơ mộng.",
+    "ctaText": "KHÁM PHÁ NGAY"
+  },
+  "stats": [
+    {
+      "value": "1.200+",
+      "label": "Cư dân tương lai"
+    },
+    {
+      "value": "3 Tòa",
+      "label": "Tháp đẳng cấp"
+    },
+    {
+      "value": "2,3 ha",
+      "label": "Công viên ven sông"
+    },
+    {
+      "value": "100%",
+      "label": "Sở hữu lâu dài"
+    }
+  ],
+  "roomConfigs": {
+    "living": {
+      "name": "Phòng Khách",
+      "desc": "Trải nghiệm không gian phòng khách sang trọng, mở rộng tối đa tầm nhìn với ban công ngắm trọn hoàng hôn tuyệt mỹ bên dòng sông Sài Gòn thơ mộng.",
+      "hotspots": [
+        {
+          "position": [4, -0.5, 1],
+          "label": "Bàn Ăn Sang Trọng",
+          "info": "Bàn ăn mặt đá Carrara nhập khẩu nguyên khối."
+        },
+        {
+          "position": [-2, 1.2, -4.5],
+          "label": "Đèn thả chùm pha lê",
+          "info": "Đèn trang trí độc quyền chế tác thủ công."
+        },
+        {
+          "position": [1, -0.8, -5],
+          "label": "Cửa ra ban công",
+          "action": "balcony"
+        }
+      ]
+    },
+    "bedroom": {
+      "name": "Phòng Ngủ Master",
+      "desc": "Phòng ngủ Master ấm áp với thiết kế sàn gỗ tự nhiên, cửa sổ kính Low-E tràn viền tối ưu ánh sáng tự nhiên và mở ra tầm nhìn thơ mộng.",
+      "hotspots": [
+        {
+          "position": [0, 0, -4.5],
+          "label": "Kính Low-E tràn viền",
+          "info": "Kính cách âm 3 lớp cách nhiệt vượt trội."
+        },
+        {
+          "position": [3.5, 0.5, 2],
+          "label": "Tủ quần áo âm tường",
+          "info": "Thiết kế gỗ acrylic bóng gương sang trọng."
+        }
+      ]
+    },
+    "kitchen": {
+      "name": "Phòng Bếp & Ăn",
+      "desc": "Khu vực bếp thông minh được hoàn thiện tinh xảo bằng đá Thạch Anh, trang bị lò nướng và bếp điện âm tủ thông minh chuẩn châu Âu.",
+      "hotspots": [
+        {
+          "position": [-3.5, 0.5, -2],
+          "label": "Hệ tủ bếp Hafele",
+          "info": "Phụ kiện giảm chấn cao cấp đóng mở êm ái."
+        },
+        {
+          "position": [0.5, -0.2, 3],
+          "label": "Quầy bar tiện ích",
+          "info": "Nơi thư giãn pha chế cocktail tại gia."
+        }
+      ]
+    },
+    "bathroom": {
+      "name": "Phòng Tắm Thư Giãn",
+      "desc": "Phòng tắm ốp đá Marble tự nhiên tích hợp bồn tắm đứng, bồn tắm nằm cao cấp, đem lại cảm giác thư thái tuyệt vời như ở resort 5 sao.",
+      "hotspots": [
+        {
+          "position": [-3.5, -0.5, 0.5],
+          "label": "Bồn tắm nằm thư giãn",
+          "info": "Thiết kế công thái học cao cấp chuẩn spa."
+        },
+        {
+          "position": [3.5, 1, -1],
+          "label": "Thiết bị vệ sinh thông minh",
+          "info": "Thương hiệu Kohler nhập khẩu trực tiếp từ Mỹ."
+        }
+      ]
+    },
+    "balcony": {
+      "name": "Ban Công Panorama",
+      "desc": "Góc ban công khoáng đạt lộng gió sông, điểm hẹn thư thái mỗi tối để thưởng thức rượu vang và ngắm toàn cảnh thành phố lung linh ánh đèn.",
+      "hotspots": [
+        {
+          "position": [-2, -0.8, -4],
+          "label": "Bộ ghế thư giãn",
+          "info": "Không gian uống trà, ngắm cảnh yên bình ngoài ban công."
+        },
+        {
+          "position": [3, -0.2, 1],
+          "label": "Vào phòng khách",
+          "action": "living"
+        }
+      ]
+    }
+  },
+  "ui": {
+    "overview": {
+      "sectionTag": "Tổng quan dự án",
+      "ctaPrice": "Nhận bảng giá riêng",
+      "ctaDesc": "Gửi mặt bằng, chính sách thanh toán và lịch xem nhà mẫu trong ngày.",
+      "viewSgRiver": "View sông Sài Gòn",
+      "viewDesc": "Tầm nhìn mở từ phòng khách đến ban công, phù hợp cả ở thật lẫn lưu trú cao cấp.",
+      "ready360": "Sẵn sàng 360",
+      "copy": "Bộ sưu tập căn hộ ven sông dành cho chủ nhân yêu sự riêng tư, ánh sáng tự nhiên và trải nghiệm sống chuẩn nghỉ dưỡng ngay trong thành phố."
+    },
+    "location": {
+      "sectionTag": "Vị trí độc tôn",
+      "title": "Tâm điểm giao hòa bên bờ sông Sài Gòn",
+      "desc": "Tọa lạc tại vị trí chiến lược dọc trục đường ven sông thơ mộng, Riverfront Residences mang đến khả năng kết nối hoàn hảo cùng tầm nhìn panorama khoáng đạt hướng thẳng về trung tâm thành phố nhộn nhịp.",
+      "thuthieu": "Trung tâm Thủ Thiêm",
+      "thuthieuDesc": "Kết nối trực tiếp qua cầu Thủ Thiêm.",
+      "q1": "Trung tâm Quận 1",
+      "q1Desc": "Đến phố đi bộ Nguyễn Huệ, Nhà hát Thành Phố.",
+      "binhthanh": "Bình Thạnh & Thảo Điền",
+      "binhthanhDesc": "Tận hưởng các dịch vụ quốc tế đẳng cấp.",
+      "airport": "Sân bay Tân Sơn Nhất",
+      "airportDesc": "Hệ thống giao thông thông thoáng, nhanh chóng.",
+      "mapTitle": "Bản đồ vị trí Riverfront Residences",
+      "times": {
+        "5mins": "5 Phút",
+        "10mins": "10 Phút",
+        "15mins": "15 Phút",
+        "25mins": "25 Phút"
+      }
+    },
+    "tour": {
+      "sectionTag": "Trải nghiệm xứng tầm",
+      "title": "Chạm vào từng không gian",
+      "desc": "Chọn một không gian để đồng bộ với tour 360 và mặt bằng tương tác.",
+      "living": "Không gian tiếp khách rộng, lấy sáng sâu và kết nối trực tiếp ban công ven sông.",
+      "kitchen": "Bố cục bếp gọn, mặt đảo tiện dụng cho những buổi tối thân mật tại nhà.",
+      "bedroom": "Tông ấm, cửa kính lớn và hệ lưu trữ âm tường giúp căn phòng luôn thư thái.",
+      "balcony": "Một điểm dừng riêng tư để nhìn dòng nước, phố thị và ánh hoàng hôn chuyển sắc.",
+      "bathroom": "Hoàn thiện đá, ánh sáng dịu và thiết bị tinh tế cho nhịp sống nghỉ dưỡng."
+    },
+    "plans": {
+      "sectionTag": "Mặt bằng căn hộ",
+      "title": "Đa dạng lựa chọn",
+      "ref": "GP-18.06 | tham khảo",
+      "area": "Diện tích",
+      "price": "Giá bán",
+      "types": {
+        "oneBedroom": "1 phòng ngủ",
+        "twoBedroom": "2 phòng ngủ",
+        "threeBedroom": "3 phòng ngủ",
+        "duplex": "Duplex"
+      },
+      "prices": {
+        "from5_8": "từ 5,8 tỷ",
+        "from8_9": "từ 8,9 tỷ",
+        "from13_6": "từ 13,6 tỷ",
+        "onDemand": "theo yêu cầu"
+      }
+    },
+    "advantages": {
+      "sectionTag": "Sống khác biệt",
+      "title": "Cam kết giá trị bền vững",
+      "riverfront": "Mặt tiền sông",
+      "riverfrontDesc": "Tầm nhìn mở, thoáng gió và giữ nhịp sống yên tĩnh giữa lõi đô thị.",
+      "garden": "Vườn nội khu",
+      "gardenDesc": "Chuỗi tiện ích xanh, đường dạo và khu thư giãn dành riêng cho cư dân.",
+      "private": "Vận hành riêng tư",
+      "privateDesc": "Sảnh đón, thang máy kiểm soát tầng và dịch vụ concierge tiêu chuẩn cao.",
+      "value": "Giá trị bền vững",
+      "valueDesc": "Quỹ đất ven sông khan hiếm, pháp lý minh bạch và khả năng khai thác tốt."
+    },
+    "updates": {
+      "sectionTag": "Tin tức dự án",
+      "title": "Cập nhật mới nhất",
+      "items": [
+        {
+          "title": "Hoàn thiện nhà mẫu Riverfront Gallery",
+          "date": "22.05.2026"
+        },
+        {
+          "title": "Công bố bộ sưu tập căn góc tầng cao",
+          "date": "18.05.2026"
+        },
+        {
+          "title": "Trải nghiệm 360 được cập nhật thêm phòng ngủ",
+          "date": "10.05.2026"
+        }
+      ]
+    },
+    "contact": {
+      "tag": "Bảng giá & tư vấn",
+      "title": "Giữ suất xem căn đẹp",
+      "desc": "Nhận bảng giá cập nhật, mặt bằng phù hợp nhu cầu và lịch tham quan nhà mẫu riêng.",
+      "flexSchedule": "Hẹn lịch linh hoạt",
+      "secureInfo": "Thông tin bảo mật",
+      "placeholderName": "Họ và tên",
+      "placeholderPhone": "Số điện thoại",
+      "placeholderDemand": "Nhu cầu căn hộ",
+      "ctaSubmit": "Nhận tư vấn riêng"
+    },
+    "footer": {
+      "desc": "Không gian sống ven sông với trải nghiệm 360, mặt bằng tương tác và tư vấn riêng cho từng nhu cầu sở hữu.",
+      "contact": "Liên hệ dự án",
+      "address": "Khu đô thị ven sông Sài Gòn",
+      "privateGallery": "Private preview gallery"
+    },
+    "navbar": {
+      "home": "Trang chủ",
+      "overview": "Tổng quan",
+      "location": "Vị trí",
+      "amenities": "Tiện ích",
+      "apartments": "Căn hộ",
+      "tour": "Tour 360",
+      "cta": "Lịch xem riêng"
+    },
+    "hero360": {
+      "sunsetHall": "Sảnh hoàng hôn",
+      "privateSpace": "Không gian riêng",
+      "delicateKitchen": "Bếp tinh tế",
+      "spaBathroom": "Spa thư giãn",
+      "riverfrontBalcony": "Sân trời ven sông",
+      "floorPlan": "Mặt bằng căn hộ",
+      "viewGallery": "Xem thư viện",
+      "cta360": "Trải nghiệm 360°",
+      "indicatorGoHome": "Về trang chủ",
+      "indicatorTour": "Trải nghiệm 360"
+    },
+    "panorama": {
+      "tag": "Tour căn hộ 360",
+      "title": "Trải nghiệm căn hộ 360°",
+      "dragTip": "Kéo để xoay không gian",
+      "closeLabel": "Đóng trải nghiệm 360",
+      "exitLabel": "Thoát chế độ trải nghiệm",
+      "loading": "Đang tải panorama"
+    },
+    "gallery": {
+      "title": "THƯ VIỆN THỰC TẾ CĂN HỘ",
+      "desc": "Khám phá hình ảnh thiết kế nội thất thực tế và vật liệu bàn giao cao cấp nhập khẩu trực tiếp từ châu Âu.",
+      "closeLabel": "Đóng thư viện",
+      "ctaRegister": "ĐĂNG KÝ THAM QUAN THỰC TẾ",
+      "tabs": {
+        "all": "Tất cả",
+        "living": "Phòng Khách",
+        "bedroom": "Phòng Ngủ Master",
+        "kitchen": "Phòng Bếp & Ăn",
+        "bathroom": "Phòng Tắm Thư Giãn",
+        "balcony": "Ban Công Panorama"
+      },
+      "items": [
+        {
+          "title": "Không gian Phòng Khách",
+          "description": "Thiết kế mở rộng panorama, bàn giao đá marble nguyên bản cao cấp nhập khẩu châu Âu.",
+          "brand": "Nội thất Hafele & Kohler"
+        },
+        {
+          "title": "Phòng Bếp & Ăn",
+          "description": "Bếp ốp đá thạch anh nhân tạo chống trầy xước, trang bị lò nướng âm tủ thông minh.",
+          "brand": "Thiết bị Bosch & Hafele"
+        },
+        {
+          "title": "Phòng Ngủ Master",
+          "description": "Sàn gỗ óc chó tự nhiên, hệ tủ áo acrylic bóng gương cao sát trần sang trọng.",
+          "brand": "Gỗ An Cường cao cấp"
+        },
+        {
+          "title": "Phòng Tắm Thư Giãn",
+          "description": "Bồn tắm nằm công thái học, thiết bị vệ sinh thông minh mạ vàng sang trọng chuẩn spa.",
+          "brand": "Thiết bị Kohler mạ PVD"
+        },
+        {
+          "title": "Ban Công Panorama",
+          "description": "Góc ban công khoáng đạt lộng gió sông, mở ra toàn cảnh hoàng hôn và skyline thành phố.",
+          "brand": "View sông Sài Gòn"
+        }
+      ]
+    },
+    "leadForm": {
+      "closeLabel": "Đóng form đăng ký",
+      "successTitle": "Đăng ký thành công",
+      "successDesc": "Cảm ơn bạn đã quan tâm Riverfront Residences. Chuyên viên tư vấn sẽ liên hệ trong vòng 15 phút để gửi bảng giá và lịch xem nhà mẫu.",
+      "successClose": "Đóng cửa sổ",
+      "titlePrice": "Bảng giá riêng",
+      "subtitlePrice": "Chọn căn đẹp theo đúng nhu cầu.",
+      "descPrice": "Tư vấn mặt bằng, giá bán và lịch tham quan nhà mẫu được cá nhân hóa cho từng khách hàng.",
+      "scheduleLabel": "Lịch xem nhà mẫu linh hoạt",
+      "secureLabel": "Bảo mật thông tin liên hệ",
+      "registerTag": "Đăng ký nhận thông tin",
+      "registerTitle": "Nhận bảng giá & lịch xem căn hộ",
+      "registerDesc": "Chuyên viên sẽ gửi mặt bằng chi tiết, chính sách thanh toán và căn phù hợp nhất.",
+      "labelName": "Họ và tên",
+      "labelPhone": "Số điện thoại",
+      "labelEmail": "Email liên hệ",
+      "labelDemand": "Nhu cầu căn hộ",
+      "ctaSubmit": "Nhận bảng giá riêng",
+      "footerNote": "Thông tin chỉ dùng để tư vấn dự án Riverfront Residences.",
+      "sending": "Đang gửi thông tin...",
+      "successToast": "Đăng ký nhận thông tin thành công!",
+      "errorToast": "Gửi thông tin thất bại. Vui lòng thử lại!",
+      "demands": [
+        "Căn hộ 1 Phòng ngủ",
+        "Căn hộ 2 Phòng ngủ (GP-18.06)",
+        "Căn hộ 3 Phòng ngủ",
+        "Penthouse Thượng Lưu"
+      ]
+    }
+  }
+}
