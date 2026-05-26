@@ -889,8 +889,7 @@ function ThreePanoramaViewer({
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75))
     renderer.setSize(mount.clientWidth, mount.clientHeight)
     renderer.outputColorSpace = THREE.SRGBColorSpace
-    renderer.domElement.className = 'h-full w-full cursor-grab active:cursor-grabbing touch-none outline-none'
-    renderer.domElement.tabIndex = 0
+    renderer.domElement.className = 'h-full w-full cursor-grab active:cursor-grabbing touch-none'
     mount.appendChild(renderer.domElement)
 
     const scene = new THREE.Scene()
@@ -967,7 +966,6 @@ function ThreePanoramaViewer({
     let joystickVector = { x: 0, y: 0 }
     let bobTime = 0
     let isMoving = false
-    let pointerLockCooldownUntil = 0
 
     const clampToRoom = (next: THREE.Vector3) => {
       const normalized =
@@ -1073,27 +1071,12 @@ function ThreePanoramaViewer({
     }
 
     const onPointerLockChange = () => {
-      const locked = document.pointerLockElement === renderer.domElement
-      setIsPointerLocked(locked)
-
-      if (!locked) {
-        // Browser không cho acquire lại pointer lock ngay sau khi user vừa ESC/exit.
-        // Cooldown ngắn này tránh lỗi: "Pointer lock cannot be acquired immediately after the user has exited the lock".
-        pointerLockCooldownUntil = performance.now() + 900
-      }
+      setIsPointerLocked(document.pointerLockElement === renderer.domElement)
     }
 
     const onCanvasPointerDown = (event: PointerEvent) => {
-      renderer.domElement.focus()
-
       if (event.pointerType === 'mouse') {
-        const canRequestPointerLock =
-          document.pointerLockElement !== renderer.domElement &&
-          performance.now() > pointerLockCooldownUntil
-
-        if (canRequestPointerLock) {
-          renderer.domElement.requestPointerLock?.()
-        }
+        renderer.domElement.requestPointerLock?.()
         return
       }
 
@@ -1204,8 +1187,8 @@ function ThreePanoramaViewer({
     joystick?.addEventListener('pointercancel', onJoystickPointerUp)
     document.addEventListener('mousemove', onMouseMove)
     document.addEventListener('pointerlockchange', onPointerLockChange)
-    document.addEventListener('keydown', onKeyDown)
-    document.addEventListener('keyup', onKeyUp)
+    window.addEventListener('keydown', onKeyDown)
+    window.addEventListener('keyup', onKeyUp)
     window.addEventListener('resize', onResize)
 
     new THREE.TextureLoader().load(imageSrc, (loadedTexture) => {
@@ -1227,8 +1210,8 @@ function ThreePanoramaViewer({
         document.exitPointerLock()
       }
       window.removeEventListener('resize', onResize)
-      document.removeEventListener('keydown', onKeyDown)
-      document.removeEventListener('keyup', onKeyUp)
+      window.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('keyup', onKeyUp)
       document.removeEventListener('mousemove', onMouseMove)
       document.removeEventListener('pointerlockchange', onPointerLockChange)
       renderer.domElement.removeEventListener('pointerdown', onCanvasPointerDown)
