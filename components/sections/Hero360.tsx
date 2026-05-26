@@ -869,302 +869,88 @@ function ThreePanoramaViewer({
   loadingText: string
 }) {
   const mountRef = useRef<HTMLDivElement>(null)
-  const joystickRef = useRef<HTMLDivElement>(null)
-  const knobRef = useRef<HTMLDivElement>(null)
   const [isLoaded, setIsLoaded] = useState(false)
-  const [isPointerLocked, setIsPointerLocked] = useState(false)
 
   useEffect(() => {
     const mount = mountRef.current
-    const joystick = joystickRef.current
-    const knob = knobRef.current
     if (!mount) return
 
     setIsLoaded(false)
 
-    const renderer = new THREE.WebGLRenderer({
-      antialias: window.devicePixelRatio <= 1.5,
-      powerPreference: 'high-performance',
-    })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75))
+    const renderer = new THREE.WebGLRenderer({ antialias: true })
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     renderer.setSize(mount.clientWidth, mount.clientHeight)
     renderer.outputColorSpace = THREE.SRGBColorSpace
-    renderer.domElement.className = 'h-full w-full cursor-grab active:cursor-grabbing touch-none'
+    renderer.domElement.className = 'h-full w-full cursor-grab active:cursor-grabbing'
     mount.appendChild(renderer.domElement)
 
     const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(96, mount.clientWidth / mount.clientHeight, 0.01, 1200)
-
-    const geometry = new THREE.SphereGeometry(500, 80, 48)
+    const camera = new THREE.PerspectiveCamera(105, mount.clientWidth / mount.clientHeight, 1, 1100)
+    const geometry = new THREE.SphereGeometry(500, 96, 64)
     geometry.scale(-1, 1, 1)
 
-    const material = new THREE.MeshBasicMaterial({
-      color: 0xffffff,
-      transparent: true,
-      opacity: 0,
-    })
+    const material = new THREE.MeshBasicMaterial({ color: 0xffffff })
     const sphere = new THREE.Mesh(geometry, material)
-    sphere.position.set(0, 0, 0)
     scene.add(sphere)
 
     let animationFrame = 0
     let texture: THREE.Texture | null = null
-    let lastTime = performance.now()
-    let fadeOpacity = 0
+    let isDragging = false
+    let startX = 0
+    let startY = 0
+    let startLon = 0
+    let startLat = 0
+    let lon = roomKey === 'balcony' ? 24 : roomKey === 'kitchen' ? -42 : roomKey === 'bathroom' ? 48 : 0
+    let lat = -2
+    let targetLon = lon
+    let targetLat = lat
 
-    // ===== FIRST-PERSON MOVEMENT TUNING =====
-    // Chỉnh tốc độ đi bộ tại đây để thay đổi cảm giác walkthrough.
-    const MOVE_SPEED = 1.85
-    const LOOK_SENSITIVITY = 0.0022
-    const TOUCH_LOOK_SENSITIVITY = 0.0048
-    const ACCELERATION = 9.5
-    const FRICTION = 8.2
-    const HEAD_BOB_SPEED = 8.5
-    const HEAD_BOB_AMOUNT = 0.035
-    const EYE_HEIGHT = 1.62
-    // ========================================
+    const updateCamera = () => {
+      lon += (targetLon - lon) * 0.12
+      lat += (targetLat - lat) * 0.12
+      lat = Math.max(-78, Math.min(78, lat))
 
-    const roomYaw: Record<RoomKey, number> = {
-      living: 0,
-      bedroom: -0.18,
-      kitchen: -0.72,
-      bathroom: 0.76,
-      balcony: 0.42,
+      const phi = THREE.MathUtils.degToRad(90 - lat)
+      const theta = THREE.MathUtils.degToRad(lon)
+      const x = 500 * Math.sin(phi) * Math.cos(theta)
+      const y = 500 * Math.cos(phi)
+      const z = 500 * Math.sin(phi) * Math.sin(theta)
+
+      camera.lookAt(x, y, z)
     }
 
-    const collisionBounds: Record<RoomKey, { radiusX: number; radiusZ: number }> = {
-      living: { radiusX: 2.25, radiusZ: 1.45 },
-      bedroom: { radiusX: 1.75, radiusZ: 1.22 },
-      kitchen: { radiusX: 1.55, radiusZ: 1.08 },
-      bathroom: { radiusX: 1.05, radiusZ: 0.9 },
-      balcony: { radiusX: 2.0, radiusZ: 0.78 },
-    }
-
-    const bounds = collisionBounds[roomKey]
-    const position = new THREE.Vector3(0, EYE_HEIGHT, 0)
-    const velocity = new THREE.Vector3()
-    const desiredVelocity = new THREE.Vector3()
-    const forward = new THREE.Vector3()
-    const right = new THREE.Vector3()
-    const euler = new THREE.Euler(0, roomYaw[roomKey] ?? 0, 0, 'YXZ')
-    const keys = {
-      forward: false,
-      backward: false,
-      left: false,
-      right: false,
-    }
-
-    let targetYaw = euler.y
-    let targetPitch = -0.03
-    let yaw = targetYaw
-    let pitch = targetPitch
-    let isTouchLooking = false
-    let touchLookId: number | null = null
-    let touchLookX = 0
-    let touchLookY = 0
-    let joystickId: number | null = null
-    let joystickVector = { x: 0, y: 0 }
-    let bobTime = 0
-    let isMoving = false
-
-    const clampToRoom = (next: THREE.Vector3) => {
-      const normalized =
-        (next.x * next.x) / (bounds.radiusX * bounds.radiusX) +
-        (next.z * next.z) / (bounds.radiusZ * bounds.radiusZ)
-
-      if (normalized <= 1) return next
-
-      const angle = Math.atan2(next.z / bounds.radiusZ, next.x / bounds.radiusX)
-      next.x = Math.cos(angle) * bounds.radiusX * 0.985
-      next.z = Math.sin(angle) * bounds.radiusZ * 0.985
-      velocity.multiplyScalar(0.2)
-      return next
-    }
-
-    const updateJoystickVisual = () => {
-      if (!knob) return
-      knob.style.transform = `translate(${joystickVector.x * 34}px, ${joystickVector.y * 34}px)`
-    }
-
-    const resetJoystick = () => {
-      joystickId = null
-      joystickVector = { x: 0, y: 0 }
-      updateJoystickVisual()
-    }
-
-    const updateCamera = (delta: number) => {
-      yaw += (targetYaw - yaw) * Math.min(1, delta * 16)
-      pitch += (targetPitch - pitch) * Math.min(1, delta * 16)
-      pitch = THREE.MathUtils.clamp(pitch, -1.28, 1.28)
-
-      forward.set(Math.sin(yaw), 0, Math.cos(yaw)).normalize()
-      right.set(Math.cos(yaw), 0, -Math.sin(yaw)).normalize()
-
-      const inputX = (keys.right ? 1 : 0) - (keys.left ? 1 : 0) + joystickVector.x
-      const inputZ = (keys.forward ? 1 : 0) - (keys.backward ? 1 : 0) - joystickVector.y
-      const inputLength = Math.hypot(inputX, inputZ)
-      isMoving = inputLength > 0.03
-
-      desiredVelocity.set(0, 0, 0)
-
-      if (isMoving) {
-        const normalizedX = inputX / Math.max(inputLength, 1)
-        const normalizedZ = inputZ / Math.max(inputLength, 1)
-        desiredVelocity
-          .addScaledVector(right, normalizedX * MOVE_SPEED)
-          .addScaledVector(forward, normalizedZ * MOVE_SPEED)
-      }
-
-      const smoothing = isMoving ? ACCELERATION : FRICTION
-      velocity.lerp(desiredVelocity, 1 - Math.exp(-smoothing * delta))
-
-      const nextPosition = position.clone().addScaledVector(velocity, delta)
-      clampToRoom(nextPosition)
-      position.copy(nextPosition)
-
-      if (isMoving && velocity.lengthSq() > 0.02) {
-        bobTime += delta * HEAD_BOB_SPEED
-      } else {
-        bobTime += delta * 3
-      }
-
-      const bob = isMoving ? Math.sin(bobTime) * HEAD_BOB_AMOUNT * Math.min(velocity.length() / MOVE_SPEED, 1) : 0
-      camera.position.set(position.x, EYE_HEIGHT + bob, position.z)
-      euler.set(pitch, yaw, Math.sin(bobTime * 0.5) * HEAD_BOB_AMOUNT * 0.22, 'YXZ')
-      camera.quaternion.setFromEuler(euler)
-    }
-
-    const animate = (now: number) => {
-      const delta = Math.min((now - lastTime) / 1000, 0.05)
-      lastTime = now
-
-      if (fadeOpacity < 1) {
-        fadeOpacity = Math.min(1, fadeOpacity + delta * 2.2)
-        material.opacity = fadeOpacity
-      }
-
-      updateCamera(delta)
+    const animate = () => {
+      if (!isDragging) targetLon += 0.018
+      updateCamera()
       renderer.render(scene, camera)
       animationFrame = requestAnimationFrame(animate)
     }
 
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.repeat) return
-      if (event.code === 'KeyW' || event.code === 'ArrowUp') keys.forward = true
-      if (event.code === 'KeyS' || event.code === 'ArrowDown') keys.backward = true
-      if (event.code === 'KeyA' || event.code === 'ArrowLeft') keys.left = true
-      if (event.code === 'KeyD' || event.code === 'ArrowRight') keys.right = true
-    }
-
-    const onKeyUp = (event: KeyboardEvent) => {
-      if (event.code === 'KeyW' || event.code === 'ArrowUp') keys.forward = false
-      if (event.code === 'KeyS' || event.code === 'ArrowDown') keys.backward = false
-      if (event.code === 'KeyA' || event.code === 'ArrowLeft') keys.left = false
-      if (event.code === 'KeyD' || event.code === 'ArrowRight') keys.right = false
-    }
-
-    const onMouseMove = (event: MouseEvent) => {
-      if (document.pointerLockElement !== renderer.domElement) return
-      targetYaw -= event.movementX * LOOK_SENSITIVITY
-      targetPitch -= event.movementY * LOOK_SENSITIVITY
-      targetPitch = THREE.MathUtils.clamp(targetPitch, -1.28, 1.28)
-    }
-
-    const onPointerLockChange = () => {
-      setIsPointerLocked(document.pointerLockElement === renderer.domElement)
-    }
-
-    const onCanvasPointerDown = (event: PointerEvent) => {
-      if (event.pointerType === 'mouse') {
-        renderer.domElement.requestPointerLock?.()
-        return
-      }
-
-      isTouchLooking = true
-      touchLookId = event.pointerId
-      touchLookX = event.clientX
-      touchLookY = event.clientY
+    const onPointerDown = (event: PointerEvent) => {
+      isDragging = true
+      startX = event.clientX
+      startY = event.clientY
+      startLon = targetLon
+      startLat = targetLat
       renderer.domElement.setPointerCapture(event.pointerId)
     }
 
-    const onCanvasPointerMove = (event: PointerEvent) => {
-      if (!isTouchLooking || touchLookId !== event.pointerId) return
-      const dx = event.clientX - touchLookX
-      const dy = event.clientY - touchLookY
-      touchLookX = event.clientX
-      touchLookY = event.clientY
-
-      targetYaw -= dx * TOUCH_LOOK_SENSITIVITY
-      targetPitch -= dy * TOUCH_LOOK_SENSITIVITY
-      targetPitch = THREE.MathUtils.clamp(targetPitch, -1.28, 1.28)
+    const onPointerMove = (event: PointerEvent) => {
+      if (!isDragging) return
+      targetLon = startLon - (event.clientX - startX) * 0.11
+      targetLat = Math.max(-78, Math.min(78, startLat + (event.clientY - startY) * 0.11))
     }
 
-    const endCanvasPointer = (event: PointerEvent) => {
-      if (touchLookId !== event.pointerId) return
-      isTouchLooking = false
-      touchLookId = null
+    const endDrag = (event: PointerEvent) => {
+      isDragging = false
       if (renderer.domElement.hasPointerCapture(event.pointerId)) {
         renderer.domElement.releasePointerCapture(event.pointerId)
       }
     }
 
-    const onJoystickPointerDown = (event: PointerEvent) => {
-      if (!joystick) return
-      event.preventDefault()
-      event.stopPropagation()
-      joystickId = event.pointerId
-      joystick.setPointerCapture(event.pointerId)
-
-      const moveJoystick = (clientX: number, clientY: number) => {
-        const rect = joystick.getBoundingClientRect()
-        const centerX = rect.left + rect.width / 2
-        const centerY = rect.top + rect.height / 2
-        const dx = clientX - centerX
-        const dy = clientY - centerY
-        const distance = Math.min(Math.hypot(dx, dy), 42)
-        const angle = Math.atan2(dy, dx)
-
-        joystickVector = {
-          x: Math.cos(angle) * (distance / 42),
-          y: Math.sin(angle) * (distance / 42),
-        }
-        updateJoystickVisual()
-      }
-
-      moveJoystick(event.clientX, event.clientY)
-    }
-
-    const onJoystickPointerMove = (event: PointerEvent) => {
-      if (!joystick || joystickId !== event.pointerId) return
-      event.preventDefault()
-
-      const rect = joystick.getBoundingClientRect()
-      const centerX = rect.left + rect.width / 2
-      const centerY = rect.top + rect.height / 2
-      const dx = event.clientX - centerX
-      const dy = event.clientY - centerY
-      const distance = Math.min(Math.hypot(dx, dy), 42)
-      const angle = Math.atan2(dy, dx)
-
-      joystickVector = {
-        x: Math.cos(angle) * (distance / 42),
-        y: Math.sin(angle) * (distance / 42),
-      }
-      updateJoystickVisual()
-    }
-
-    const onJoystickPointerUp = (event: PointerEvent) => {
-      if (!joystick || joystickId !== event.pointerId) return
-      event.preventDefault()
-      if (joystick.hasPointerCapture(event.pointerId)) {
-        joystick.releasePointerCapture(event.pointerId)
-      }
-      resetJoystick()
-    }
-
     const onWheel = (event: WheelEvent) => {
       event.preventDefault()
-      camera.fov = Math.max(72, Math.min(104, camera.fov + event.deltaY * 0.018))
+      camera.fov = Math.max(70, Math.min(110, camera.fov + event.deltaY * 0.025))
       camera.updateProjectionMatrix()
     }
 
@@ -1176,19 +962,11 @@ function ThreePanoramaViewer({
       renderer.setSize(width, height)
     }
 
-    renderer.domElement.addEventListener('pointerdown', onCanvasPointerDown)
-    renderer.domElement.addEventListener('pointermove', onCanvasPointerMove)
-    renderer.domElement.addEventListener('pointerup', endCanvasPointer)
-    renderer.domElement.addEventListener('pointercancel', endCanvasPointer)
+    renderer.domElement.addEventListener('pointerdown', onPointerDown)
+    renderer.domElement.addEventListener('pointermove', onPointerMove)
+    renderer.domElement.addEventListener('pointerup', endDrag)
+    renderer.domElement.addEventListener('pointercancel', endDrag)
     renderer.domElement.addEventListener('wheel', onWheel, { passive: false })
-    joystick?.addEventListener('pointerdown', onJoystickPointerDown)
-    joystick?.addEventListener('pointermove', onJoystickPointerMove)
-    joystick?.addEventListener('pointerup', onJoystickPointerUp)
-    joystick?.addEventListener('pointercancel', onJoystickPointerUp)
-    document.addEventListener('mousemove', onMouseMove)
-    document.addEventListener('pointerlockchange', onPointerLockChange)
-    window.addEventListener('keydown', onKeyDown)
-    window.addEventListener('keyup', onKeyUp)
     window.addEventListener('resize', onResize)
 
     new THREE.TextureLoader().load(imageSrc, (loadedTexture) => {
@@ -1196,33 +974,21 @@ function ThreePanoramaViewer({
       texture.colorSpace = THREE.SRGBColorSpace
       texture.minFilter = THREE.LinearFilter
       texture.magFilter = THREE.LinearFilter
-      texture.generateMipmaps = false
       material.map = texture
       material.needsUpdate = true
       setIsLoaded(true)
     })
 
-    animationFrame = requestAnimationFrame(animate)
+    animate()
 
     return () => {
       cancelAnimationFrame(animationFrame)
-      if (document.pointerLockElement === renderer.domElement) {
-        document.exitPointerLock()
-      }
       window.removeEventListener('resize', onResize)
-      window.removeEventListener('keydown', onKeyDown)
-      window.removeEventListener('keyup', onKeyUp)
-      document.removeEventListener('mousemove', onMouseMove)
-      document.removeEventListener('pointerlockchange', onPointerLockChange)
-      renderer.domElement.removeEventListener('pointerdown', onCanvasPointerDown)
-      renderer.domElement.removeEventListener('pointermove', onCanvasPointerMove)
-      renderer.domElement.removeEventListener('pointerup', endCanvasPointer)
-      renderer.domElement.removeEventListener('pointercancel', endCanvasPointer)
+      renderer.domElement.removeEventListener('pointerdown', onPointerDown)
+      renderer.domElement.removeEventListener('pointermove', onPointerMove)
+      renderer.domElement.removeEventListener('pointerup', endDrag)
+      renderer.domElement.removeEventListener('pointercancel', endDrag)
       renderer.domElement.removeEventListener('wheel', onWheel)
-      joystick?.removeEventListener('pointerdown', onJoystickPointerDown)
-      joystick?.removeEventListener('pointermove', onJoystickPointerMove)
-      joystick?.removeEventListener('pointerup', onJoystickPointerUp)
-      joystick?.removeEventListener('pointercancel', onJoystickPointerUp)
       texture?.dispose()
       material.dispose()
       geometry.dispose()
@@ -1233,30 +999,10 @@ function ThreePanoramaViewer({
 
   return (
     <div className="relative h-full w-full bg-[#030711]" ref={mountRef}>
-      <div className="pointer-events-none absolute left-4 top-32 z-10 hidden border border-white/12 bg-black/30 px-4 py-3 text-[9px] font-bold uppercase tracking-[0.18em] text-white/62 backdrop-blur-xl md:block">
-        {isPointerLocked ? 'WASD di chuyển · Chuột nhìn xung quanh · ESC thoát' : 'Click để vào first-person · WASD + chuột'}
-      </div>
-
-      <div
-        ref={joystickRef}
-        className="absolute bottom-28 left-5 z-20 grid size-24 touch-none place-items-center rounded-full border border-white/16 bg-black/28 shadow-[0_18px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl md:hidden"
-        aria-label="Virtual movement joystick"
-      >
-        <div className="absolute inset-3 rounded-full border border-[#dfc28d]/18" />
-        <div
-          ref={knobRef}
-          className="size-10 rounded-full border border-[#dfc28d]/55 bg-[#dfc28d]/24 shadow-[0_0_26px_rgba(223,194,141,0.28)] transition-transform duration-75"
-        />
-      </div>
-
-      <div className="pointer-events-none absolute bottom-28 right-5 z-20 max-w-[11rem] border border-white/12 bg-black/28 px-3 py-2 text-[8px] font-bold uppercase tracking-[0.16em] text-white/60 backdrop-blur-xl md:hidden">
-        Drag phải/trái để nhìn · joystick để di chuyển
-      </div>
-
       <AnimatePresence>
         {!isLoaded && (
           <motion.div
-            className="absolute inset-0 z-30 grid place-items-center bg-[#030711]"
+            className="absolute inset-0 z-10 grid place-items-center bg-[#030711]"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.45 }}
